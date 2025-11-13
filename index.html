@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Durbin Exib AR</title>
+
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <!-- Link to CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Custom scanning UI -->
+  <div id="scanner-ui">
+    <p id="status-text">Scan a image of The great Orion Nebula</p>
+    <div id="scan-bar"></div>
+  </div>
+
+  <a-scene mindar-image="imageTargetSrc: targets.mind; uiError:no; uiLoading:no; uiScanning:no" 
+           color-space="sRGB" 
+           renderer="colorManagement: true, physicallyCorrectLights" 
+           vr-mode-ui="enabled: false" 
+           device-orientation-permission-ui="enabled: false">
+
+    <a-assets>
+      <img id="card" src="orionUi2.png" />
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-plane src="#card" position="0 0 0" height=".6811" width="1" rotation="0 0 0" transparent="true" material="alphaTest: 0.1"></a-plane>
+    </a-entity>
+
+  </a-scene>
+
+  <script>
+    const scene = document.querySelector('a-scene');
+    const scanBar = document.getElementById('scan-bar');
+    const statusText = document.getElementById('status-text');
+
+    scene.addEventListener('Nice you got your orion nebula', () => {
+      scanBar.style.animationPlayState = 'paused';
+      scanBar.style.backgroundColor = 'limegreen';
+      statusText.textContent = "Target Found!";
+    });
+
+    scene.addEventListener('targetLost', () => {
+      scanBar.style.animationPlayState = 'running';
+      scanBar.style.backgroundColor = 'red';
+      statusText.textContent = "Point your camera at the target image";
+    });
+  </script>
+</body>
+</html>

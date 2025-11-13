@@ -1,0 +1,43 @@
+/* Full-screen scanning UI overlay */
+#scanner-ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* allow AR scene interaction */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 10;
+  padding-top: 30px;
+}
+
+/* Status text styling */
+#status-text {
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  background-color: rgba(0,0,0,0.6);
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Scanning bar animation */
+#scan-bar {
+  position: absolute;
+  width: 80%;
+  height: 5px;
+  background-color: red;
+  animation: scan 2s linear infinite;
+}
+
+/* Move the bar from top to bottom */
+@keyframes scan {
+  0% { top: 20%; }
+  50% { top: 90%; }
+  100% { top: 20%; }
+}
